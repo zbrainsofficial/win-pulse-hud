@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinPulse HUD // Windows 11 Fluent Telemetry</title>
+  <style>
+    :root {
+      --bg: #090D16;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #06B6D4;
+      --accent-glow: rgba(6, 182, 212, 0.25);
+      --text-main: #F8FAFC;
+      --text-dim: #94A3B8;
+      --text-muted: #64748B;
+      --danger: #EF4444;
+      --success: #10B981;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #172554 0%, var(--bg) 75%);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; width: 100%; flex: 1; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .pulse-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .brand h1 { font-size: 20px; font-weight: 800; letter-spacing: 1px; color: var(--text-main); }
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+
+    .card-label { font-size: 11px; color: var(--text-dim); font-weight: 700; letter-spacing: 1px; }
+    .card-val { font-size: 38px; font-weight: 900; margin: 8px 0; color: var(--text-main); }
+    .card-sub { font-size: 12px; color: var(--text-muted); }
+
+    .meter {
+      width: 100%;
+      height: 6px;
+      background: #1E293B;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .meter-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 18%;
+      transition: width 0.5s ease;
+    }
+
+    .table-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .table-title { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 12px; font-size: 11px; color: var(--text-dim); border-bottom: 1px solid #334155; }
+    td { padding: 12px; font-size: 13px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+    .mono { font-family: monospace; color: var(--accent); }
+    .tag-safe { background: rgba(16, 185, 129, 0.15); color: #34D399; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .tag-warn { background: rgba(239, 68, 68, 0.15); color: #F87171; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .author-signature {
+      font-size: 11px;
+      color: #94A3B8;
+      letter-spacing: 0.5px;
+    }
+
+    .author-signature strong {
+      color: #E2E8F0;
+      font-weight: 600;
+    }
+
+    .gh-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="pulse-dot"></div>
+        <h1>WIN-PULSE HUD</h1>
+        <span class="badge">REACT 19 • C++20 • TYPESCRIPT</span>
+      </div>
+      <div>
+        <a class="gh-link" href="https://github.com/zbrainsofficial/win-pulse-hud" target="_blank">★ View on GitHub</a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">CPU REAL-TIME LOAD</div>
+        <div class="card-val" id="cpu-val">14.8%</div>
+        <div class="card-sub">Core i9-14900K @ 5.8 GHz</div>
+        <div class="meter"><div class="meter-fill" id="cpu-meter"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">MEMORY WORKING SET</div>
+        <div class="card-val">46.2%</div>
+        <div class="card-sub">14.8 GB / 32.0 GB DDR5</div>
+        <div class="meter"><div class="meter-fill" style="width: 46%;"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">DIRECT3D 12 PIPELINE</div>
+        <div class="card-val" id="gpu-val">8.4%</div>
+        <div class="card-sub">144 Hz G-Sync Active</div>
+        <div class="meter"><div class="meter-fill" id="gpu-meter" style="width: 8%;"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">ACTIVE WIN32 THREADS</div>
+        <div class="card-val" id="thread-val">3,184</div>
+        <div class="card-sub">224 Monitored Kernel PIDs</div>
+        <div class="meter"><div class="meter-fill" style="width: 32%;"></div></div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-title">
+        <span>Win32 Kernel Process Activity</span>
+        <span class="badge">LIVE KERNEL TELEMETRY</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>PID</th>
+            <th>PROCESS NAME</th>
+            <th>CPU (%)</th>
+            <th>RAM (MB)</th>
+            <th>INTEGRITY</th>
+            <th>SECURITY STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">4</td>
+            <td><strong>System Kernel</strong></td>
+            <td class="mono">0.6%</td>
+            <td class="mono">28.4 MB</td>
+            <td>System</td>
+            <td><span class="tag-safe">NOMINAL</span></td>
+          </tr>
+          <tr>
+            <td class="mono">1420</td>
+            <td><strong>explorer.exe</strong></td>
+            <td class="mono" id="exp-cpu">2.2%</td>
+            <td class="mono">96.2 MB</td>
+            <td>Medium</td>
+            <td><span class="tag-safe">NOMINAL</span></td>
+          </tr>
+          <tr>
+            <td class="mono">6184</td>
+            <td><strong>win-pulse-hud.exe</strong></td>
+            <td class="mono">1.1%</td>
+            <td class="mono">42.8 MB</td>
+            <td>High</td>
+            <td><span class="tag-safe">NOMINAL</span></td>
+          </tr>
+          <tr>
+            <td class="mono">8820</td>
+            <td><strong>background-telemetry.exe</strong></td>
+            <td class="mono">12.4%</td>
+            <td class="mono">214.1 MB</td>
+            <td>Medium</td>
+            <td><span class="tag-warn">ANOMALY SPIKE</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      <div>WIN-PULSE HUD // 2026 PRODUCTION BUILD</div>
+      <div class="author-signature">
+        Engineered by <strong>Zaigham Ali Ashraf</strong> (0321-6314020) • Z-Brains Systems
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Live Telemetry Simulation
+    setInterval(() => {
+      const cpu = (12 + Math.random() * 7).toFixed(1);
+      const gpu = (6 + Math.random() * 4).toFixed(1);
+      const threads = Math.floor(3150 + Math.random() * 40);
+
+      document.getElementById('cpu-val').innerText = cpu + '%';
+      document.getElementById('cpu-meter').style.width = cpu + '%';
+      document.getElementById('gpu-val').innerText = gpu + '%';
+      document.getElementById('gpu-meter').style.width = gpu + '%';
+      document.getElementById('thread-val').innerText = threads.toLocaleString();
+      document.getElementById('exp-cpu').innerText = (1.8 + Math.random() * 0.8).toFixed(1) + '%';
+    }, 1200);
+  </script>
+</body>
+</html>
