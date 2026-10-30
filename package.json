@@ -1,0 +1,38 @@
+{
+  "name": "win-pulse-hud",
+  "version": "1.0.0",
+  "description": "Ultra-Modern Windows Performance HUD & Kernel Telemetry Dashboard built with React 19, TypeScript, and Native C++20 Win32 Interop",
+  "main": "src/main.tsx",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "node tests/verify.mjs"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.383.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
+  },
+  "keywords": [
+    "windows-app",
+    "react",
+    "typescript",
+    "c-plus-plus",
+    "fluent-design",
+    "glassmorphism",
+    "system-monitor",
+    "hud"
+  ],
+  "author": "Z-Brains Engineering",
+  "license": "MIT"
+}
