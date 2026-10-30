@@ -1,13 +1,15 @@
 # WinPulse HUD 🪟⚡
 
+[![Live Web Demo](https://img.shields.io/badge/Live_Demo-Open_Online_HUD-06B6D4.svg?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zbrainsofficial.github.io/win-pulse-hud/)
 [![UI: React 19](https://img.shields.io/badge/UI-React_19-blue.svg)](https://react.dev)
 [![Language: TypeScript](https://img.shields.io/badge/Language-TypeScript_5.4-3178C6.svg)](https://www.typescriptlang.org)
 [![Core: C++20](https://img.shields.io/badge/Kernel_Core-C%2B%2B20_Win32-00599C.svg)](https://en.cppreference.com)
 [![Platform: Windows 11](https://img.shields.io/badge/Platform-Windows_11_%7C_10-0078D4.svg)](#)
-[![Design: Fluent Glassmorphism](https://img.shields.io/badge/Design-Fluent_Glassmorphism-9333EA.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > Ultra-modern Windows Desktop Performance HUD & Kernel Telemetry Dashboard built with **React 19**, **TypeScript**, and **Native C++20 Win32 Interop**.
+
+🌐 **Live Interactive Web Demo:** [https://zbrainsofficial.github.io/win-pulse-hud/](https://zbrainsofficial.github.io/win-pulse-hud/)
 
 ---
 
@@ -65,4 +67,8 @@ cmake --build . --config Release
 ---
 
 ## 📜 License
-MIT License. Created by [Z-Brains](https://github.com/zbrainsofficial).
+MIT License. Open-source software.
+
+<p align="right">
+  <sub>Engineered by <b>Zaigham Ali Ashraf</b> (0321-6314020) • Z-Brains Systems</sub>
+</p>
